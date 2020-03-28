@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:01:53 by seunkim           #+#    #+#             */
-/*   Updated: 2020/03/24 15:29:26 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/03/24 17:10:16 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 
 # include <stdio.h>
 # include <stdarg.h>
+
+int	ft_printf(const char *s, ...);
 
 #endif

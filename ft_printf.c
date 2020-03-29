@@ -10,41 +10,63 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*findformat(const char *s)
+// % 뒤에 오는 문자 찾기 ex) cspdiuxX%
+char	*findspecifier(const char *s)
 {
 	int i;
 
 	i = 0;
 	while (s[i] && (ft_isdigit(s[i]) || s[i] == '+' || s[i] == '-' ||
 				s[i] == ' ' || s[i] == '#' || s[i] == '.'))
-	{
-
 		i++;
-	}
-	return ();
+	if (ft_strchr("cspdiuxX%", s[i]))
+		return (s + i);
+	else 
+		return (NULL);
+}
+// 구조체 초기화
+void	init(t_struct *f, char *format)
+{
+	f->format = format;
+	f->minus = 0;
+	f->zero = 0;
+	f->width = 0;
+	f->dot = 0;
+	f->precision = 0;
 }
 
+// 문자열에서 % 찾기 
 void	checkformat(const char *s, va_list ap)
 {
-	int i;
+	int 		i;
+	char		*tmp;
+	t_struct 	*f;
 
+	if (!(f = (t_struct*)malloc(sizeof(t_struct))))
+		return ;
 	i = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
-			
+			if (!(tmp = findspecifier(s + i + 1)))
+				i++;
+			else
+			{
+				init(f, ft_strndup((s + i), (tmp + 1) - (s + i)));
+				// 여기에 분류 하는 함수 넣기 (인자 f, *tmp, ap)
+				i = i + (tmp + 1) - (s + i);
+			}
 		}
+		else
+			write (1, &s[i], 1);
 		i++;
 	}
 }
 
-/* 
-** main function
- */
-
+// 제출 함수 ft_printf
 int	ft_printf(const char *s, ...)
 {	
 	va_list	ap;

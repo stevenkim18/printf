@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 15:38:11 by seunkim           #+#    #+#             */
-/*   Updated: 2020/03/08 04:31:51 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/03/28 16:57:24 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void	ft_lstdelone(t_list *lst, void(*del)(void*));
 void	ft_lstclear(t_list **lst, void(*del)(void*));
 void	ft_lstiter(t_list *lst, void(*f)(void*));
 t_list	*ft_lstmap(t_list *lst, void*(*f)(void*), void(*del)(void*));
+
+char		*ft_strndup(char const *s, int n);
 
 #endif

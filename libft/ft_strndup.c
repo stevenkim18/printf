@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/24 15:01:53 by seunkim           #+#    #+#             */
-/*   Updated: 2020/03/24 17:10:16 by seunkim          ###   ########.fr       */
+/*   Created: 2020/03/28 16:55:53 by seunkim           #+#    #+#             */
+/*   Updated: 2020/03/28 16:56:16 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include "libft.h"
 
-# include "libft/libft.h"
+char		*ft_strndup(char const *s, int n)
+{
+	int	idx;
+	char	*ptr;
 
-# include <stdio.h>
-# include <stdarg.h>
-
-int	ft_printf(const char *s, ...);
-
-#endif
+	idx = 0;
+	if (!(ptr = (char*)malloc(sizeof(char) * (n + 1))))
+		return (NULL);
+	while (idx < n)
+	{
+		ptr[idx] = s[idx];
+		idx++;
+	}
+	ptr[idx] = '\0';
+	return (ptr);
+}

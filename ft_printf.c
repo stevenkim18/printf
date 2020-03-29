@@ -22,7 +22,7 @@ char	*findspecifier(const char *s)
 				s[i] == ' ' || s[i] == '#' || s[i] == '.'))
 		i++;
 	if (ft_strchr("cspdiuxX%", s[i]))
-		return (s + i);
+		return ((char*)s + i);
 	else 
 		return (NULL);
 }

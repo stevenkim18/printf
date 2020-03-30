@@ -41,48 +41,52 @@ void	init(t_struct *f, char *format, char conversion)
 }
 
 //서식자 분류해서 각 함수로 보내기
-void	classifyconversion(t_struct *f, va_list ap)
+void	classifyconversion(t_struct *f/*, va_list ap*/)
 {
 	if (f->conversion == '%')
 		ifpercent(f);
-
 }
 
-// void	handleformatspecifier(t_struct *f, const char *s, int *i, va_list ap)
-// {
-// 	init(f, ft_strndup((s + i), (tmp + 1) - (s + i)), *tmp);
-// 	classifyconversion(f, ap);
-// 	i = i + (tmp) - (s + i);
-// }
+void	handleformatspecifier(t_struct *f, const char *s, int *i/*, va_list ap*/)
+{
+	char	*tmp;
+
+	tmp = findspecifier(s + *i + 1);
+	init(f, ft_strndup((s + *i), (tmp + 1) - (s + *i)), *tmp);
+	classifyconversion(f/*, ap*/);
+	*i = *i + ((tmp) - (s + *i));
+}
 
 // 문자열에서 % 찾기 
-int		checkformat(const char *s, va_list ap)
+int		checkformat(const char *s/*, va_list ap*/)
 {
 	int 		i;
-	char		*tmp;
+	int			ret;
 	t_struct 	*f;
-
+	
+	ret = 0;
 	if (!(f = (t_struct*)malloc(sizeof(t_struct))))
 		return (0);
-	i = 0;
-	while (s[i])
+	i = -1;
+	while (s[++i])
 	{
 		if (s[i] == '%')
 		{
-			if (!(tmp = findspecifier(s + i + 1)))
+			if (!findspecifier(s + i + 1))
 				i++;
-			else
+			else if (findspecifier(s + i + 1))
 			{
-				init(f, ft_strndup((s + i), (tmp + 1) - (s + i)), *tmp);
-				classifyconversion(f, ap);
-				i = i + (tmp) - (s + i);
+				handleformatspecifier(f, s, &i/*, ap*/);
+				ret += f->nprinted;
 			}
 		}
 		else
-			write (1, &s[i], 1);
-		i++;
+		{
+			ft_putchar_fd(s[i], 1);
+			ret++;
+		}
 	}
-	return (i);
+	return (ret);
 }
 
 // 제출 함수 ft_printf
@@ -92,7 +96,7 @@ int	ft_printf(const char *s, ...)
 	int		ret;
 	
 	va_start(ap, s);
-	ret = checkformat(s, ap);
+	ret = checkformat(s/*, ap*/);
 	va_end(ap);
 	return (ret);
 }

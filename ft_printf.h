@@ -22,6 +22,10 @@ typedef struct s_struct
 {
     char    *format;
 
+    char    conversion;
+
+    int     nprinted;   // 출력된 문자 수
+
     int     minus;
     int     zero;
 
@@ -30,6 +34,7 @@ typedef struct s_struct
     int     precision;
 }               t_struct;
 
-int	ft_printf(const char *s, ...);
+int	    ft_printf(const char *s, ...);
+void    ifpercent(t_struct *f);
 
 #endif

@@ -21,15 +21,18 @@ char	*findspecifier(const char *s)
 	while (s[i] && (ft_isdigit(s[i]) || s[i] == '+' || s[i] == '-' ||
 				s[i] == ' ' || s[i] == '#' || s[i] == '.'))
 		i++;
-	if (ft_strchr("cspdiuxX%", s[i]))
+	if (ft_strchr("cspdiuxX%%", s[i]))
 		return ((char*)s + i);
 	else 
 		return (NULL);
 }
+
 // 구조체 초기화
-void	init(t_struct *f, char *format)
+void	init(t_struct *f, char *format, char conversion)
 {
 	f->format = format;
+	f->conversion = conversion;
+	f->nprinted = 0;
 	f->minus = 0;
 	f->zero = 0;
 	f->width = 0;
@@ -37,15 +40,30 @@ void	init(t_struct *f, char *format)
 	f->precision = 0;
 }
 
+//서식자 분류해서 각 함수로 보내기
+void	classifyconversion(t_struct *f, va_list ap)
+{
+	if (f->conversion == '%')
+		ifpercent(f);
+
+}
+
+// void	handleformatspecifier(t_struct *f, const char *s, int *i, va_list ap)
+// {
+// 	init(f, ft_strndup((s + i), (tmp + 1) - (s + i)), *tmp);
+// 	classifyconversion(f, ap);
+// 	i = i + (tmp) - (s + i);
+// }
+
 // 문자열에서 % 찾기 
-void	checkformat(const char *s, va_list ap)
+int		checkformat(const char *s, va_list ap)
 {
 	int 		i;
 	char		*tmp;
 	t_struct 	*f;
 
 	if (!(f = (t_struct*)malloc(sizeof(t_struct))))
-		return ;
+		return (0);
 	i = 0;
 	while (s[i])
 	{
@@ -55,24 +73,26 @@ void	checkformat(const char *s, va_list ap)
 				i++;
 			else
 			{
-				init(f, ft_strndup((s + i), (tmp + 1) - (s + i)));
-				// 여기에 분류 하는 함수 넣기 (인자 f, *tmp, ap)
-				i = i + (tmp + 1) - (s + i);
+				init(f, ft_strndup((s + i), (tmp + 1) - (s + i)), *tmp);
+				classifyconversion(f, ap);
+				i = i + (tmp) - (s + i);
 			}
 		}
 		else
 			write (1, &s[i], 1);
 		i++;
 	}
+	return (i);
 }
 
 // 제출 함수 ft_printf
 int	ft_printf(const char *s, ...)
 {	
 	va_list	ap;
+	int		ret;
 	
 	va_start(ap, s);
-	checkformat(s, ap);
+	ret = checkformat(s, ap);
 	va_end(ap);
-	return (0);
+	return (ret);
 }

@@ -35,6 +35,7 @@ typedef struct s_struct
 }               t_struct;
 
 int	    ft_printf(const char *s, ...);
+int		checkformat(const char *s/*, va_list ap*/);
 void    ifpercent(t_struct *f);
 
 #endif

@@ -51,6 +51,7 @@ void	classifyconversion(t_struct *f, va_list ap)
         ifchar(f, ap);
 	else if(f->conversion == 's')
 		ifstring(f, ap);
+	free(f->format);
 }
 
 int		handleformatspecifier(t_struct *f, const char *s, int *i, va_list ap)
@@ -87,5 +88,6 @@ int		checkformat(const char *s, va_list ap)
 		else
 			ret += ft_putchar_fd(s[i], 1);
 	}
+	free(f);
 	return (ret);
 }

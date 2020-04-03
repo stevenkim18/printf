@@ -15,13 +15,15 @@
 // % 뒤에 오는 문자 찾기 ex) cspdiuxX%
 char	*findspecifier(const char *s)
 {
-	int i;
+	int 	i;
+	char	conversion;
 
 	i = 0;
 	while (s[i] && (ft_isdigit(s[i]) || s[i] == '+' || s[i] == '-' ||
 				s[i] == ' ' || s[i] == '#' || s[i] == '.'))
 		i++;
-	if (ft_strchr("cspdiuxX%%", s[i]))
+	conversion = *ft_strchr("cspdiuxX%%", s[i]);
+	if (conversion)
 		return ((char*)s + i);
 	else 
 		return (NULL);
@@ -41,25 +43,29 @@ void	init(t_struct *f, char *format, char conversion)
 }
 
 //서식자 분류해서 각 함수로 보내기
-void	classifyconversion(t_struct *f/*, va_list ap*/)
+void	classifyconversion(t_struct *f, va_list ap)
 {
 	if (f->conversion == '%')
 		ifpercent(f);
+    else if(f->conversion == 'c')
+        ifchar(f, ap);
+	else if(f->conversion == 's')
+		ifstring(f, ap);
 }
 
-int		handleformatspecifier(t_struct *f, const char *s, int *i/*, va_list ap*/)
+int		handleformatspecifier(t_struct *f, const char *s, int *i, va_list ap)
 {
 	char	*tmp;
 
 	tmp = findspecifier(s + *i + 1);
 	init(f, ft_strndup((s + *i), (tmp + 1) - (s + *i)), *tmp);
-	classifyconversion(f/*, ap*/);
+	classifyconversion(f, ap);
 	*i = *i + ((tmp) - (s + *i));
 	return (f->nprinted);
 }
 
 // 문자열에서 % 찾기 
-int		checkformat(const char *s/*, va_list ap*/)
+int		checkformat(const char *s, va_list ap)
 {
 	int 		i;
 	int			ret;
@@ -72,11 +78,11 @@ int		checkformat(const char *s/*, va_list ap*/)
 	while (s[++i])
 	{
 		if (s[i] == '%')
-		{
+		{	
 			if (!findspecifier(s + i + 1))
 				i++;
 			else if (findspecifier(s + i + 1))
-				ret += handleformatspecifier(f, s, &i/*, ap*/);
+				ret += handleformatspecifier(f, s, &i, ap);
 		}
 		else
 			ret += ft_putchar_fd(s[i], 1);

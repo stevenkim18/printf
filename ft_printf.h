@@ -35,7 +35,14 @@ typedef struct s_struct
 }               t_struct;
 
 int	    ft_printf(const char *s, ...);
-int		checkformat(const char *s/*, va_list ap*/);
+int		checkformat(const char *s, va_list ap);
+
 void    ifpercent(t_struct *f);
+void	ifchar(t_struct *f, va_list ap);
+void    ifstring(t_struct *f, va_list ap);
+
+void    displayzero(t_struct *f);
+void    displaywidth(t_struct *f);
+
 
 #endif

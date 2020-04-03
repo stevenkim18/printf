@@ -14,7 +14,7 @@ NAME	=	libftprintf.a
 CC	=	gcc
 FLAGS	=	-Wall -Werror -Wextra
 
-SRCS	=	ft_printf.c checkformat.c displaypercent.c
+SRCS	=	ft_printf.c checkformat.c displayflags.c displaypercent.c displaychar.c displaystring.c
 OBJS	=	$(SRCS:.c=.o)
 
 all	:	$(NAME)

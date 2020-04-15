@@ -21,7 +21,10 @@ void    displayzero(t_struct *f, int len)
     zerolen = 0;
     if ((f->conversion) == 'c' || f->conversion == '%')
         zerolen = f->width - 1;
-    else if ((f->conversion == 'd') || f->conversion == 'i')
+    else if ((f->conversion == 'd') || (f->conversion == 'i')
+            || (f->conversion = 'u'))
+        zerolen = f->precision - len;
+    else if ((f->conversion == 'x') || (f->conversion == 'X'))
         zerolen = f->precision - len;
     // print space
     while (i++ < zerolen)
@@ -40,7 +43,10 @@ void    displaywidth(t_struct *f)
         spacelen = f->width - 1;
     else if (f->width && (f->conversion == 's'))
         spacelen = f->width - f->precision;
-    else if (f->width && ((f->conversion == 'd') || f->conversion == 'i'))
+    else if (f->width && ((f->conversion == 'd') || (f->conversion == 'i')
+                            || (f->conversion = 'u')))
+        spacelen = f->width - f->precision;
+    else if (f->width && ((f->conversion == 'x') || (f->conversion == 'X')))
         spacelen = f->width - f->precision;
     // print space
     while (i++ < spacelen)

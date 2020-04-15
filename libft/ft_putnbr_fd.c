@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
-{
-	long long int	num;
+void	ft_putnbr_fd(long long n, int fd)
+{	
+	long long	num;
 
-	num = (long long int)n;
+	num = n;
 	if (num < 0)
 	{
 		num = -num;

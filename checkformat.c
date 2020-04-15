@@ -52,7 +52,11 @@ void	classifyconversion(t_struct *f, va_list ap)
 	else if (f->conversion == 's')
 		ifstring(f, ap);
 	else if (f->conversion == 'i' || f->conversion == 'd')
-		ifinteger(f, ap);
+		ifinteger(f, ap, 0);
+	else if (f->conversion == 'u')
+		ifinteger(f, ap, 1);
+	else if (f->conversion == 'x' || f->conversion == 'X')
+		ifhex(f, ap);
 	free(f->format);
 }
 

@@ -1,94 +1,101 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   displayinteger.c                                   :+:      :+:    :+:   */
+/*   displayhex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/14 17:18:32 by seunkim           #+#    #+#             */
-/*   Updated: 2020/04/14 17:18:51 by seunkim          ###   ########.fr       */
+/*   Created: 2020/04/16 03:18:54 by seunkim           #+#    #+#             */
+/*   Updated: 2020/04/16 03:19:09 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		getintlen(long long num)
+int		gethexlen(long long num)
 {
 	int		count;
 
 	count = 1;
-	while (num /= 10)
+	while (num /= 16)
 		count++;
 	return (count);
 }
 
-void    editflagsinteger(t_struct *f, long long num, int numlen)
-{   
-    // 정확도가 있을 때
-    if (f->dot)
+void	ft_puthex(long long num, int isupcase)
+{	
+    char *hexup;
+    char *hexlow;
+    hexup = "0123456789ABCDEF";
+    hexlow = "0123456789abcdef";
+	if (num < 0)
+	{
+		num = -num;
+		write(1, "-", 1);
+	}
+	if (num >= 16)
+	{
+		ft_puthex(num / 16, isupcase);
+		ft_puthex(num % 16, isupcase);
+	}
+	else
     {   
-        // %.d 인 경우 숫자 출력 안함.
+        if (isupcase)
+		    write(1, &hexup[num], 1);
+        else
+            write(1, &hexlow[num], 1);
+    }
+}
+
+void    editflagshex(t_struct *f, int hexlen)
+{
+    if (f->dot)
+    {
         if (f->precision == 0)
             return ;
-        if (f->precision <= numlen)
-            f->precision = numlen;
+        if (f->precision <= hexlen)
+            f->precision = hexlen;
     }
-    // 넓이가 있을 때
     if (f->width > 0)
     {
-        if (num < 0)
-            f->width--;
         if (f->precision == 0)
-            f->precision = numlen;
+            f->precision = hexlen;
         if (f->width < f->precision)
             f->width = f->precision;
-        // %05d, 34 --> 00034
         if (f->zero && !(f->dot))
             f->precision = f->width;
     }
 }
 
-void    displayzerointeger(t_struct *f, long long num)
-{
-    // -00012
-    if (num < 0)
-    {
-        ft_putchar_fd('-', 1);
-        num = -num;
-        f->nprinted++;
-    }
-    if (f->zero || f->dot)
-        displayzero(f, getintlen(num));
-    // %.d 인 경우 숫자 출력 안함.
-    if (!(f->dot && f->precision == 0))
-        ft_putnbr_fd(num, 1);
-}
+void    displayhex(t_struct *f, va_list ap, int isupcase)
+{   
+    long long num;
 
-void    displayinteger(t_struct *f, va_list ap, int isunsigned)
-{
-    long long   num;
-
-    if (isunsigned)
-        num = (long long)va_arg(ap, unsigned int);
-    else 
-        num = va_arg(ap, int);
-    editflagsinteger(f, num, getintlen(num));
+    num = va_arg(ap, unsigned int);
+    editflagshex(f, gethexlen(num));
     if (f->minus)
-    {
-        displayzerointeger(f, num);
+    {   
+        if (f->zero || f->dot)
+            displayzero(f, gethexlen(num));
+        if (!(f->dot && f->precision == 0))
+            ft_puthex(num, isupcase);
         displaywidth(f);
     }
     else
     {
         displaywidth(f);
-        displayzerointeger(f, num);
+        if (f->zero || f->dot)
+            displayzero(f, gethexlen(num));
+        if (!(f->dot && f->precision == 0))
+            ft_puthex(num, isupcase);
     }
-    f->nprinted += getintlen(num);
+    f->nprinted += gethexlen(num);
 }
 
-void    ifinteger(t_struct *f, va_list ap, int isunsigned)
+void    ifhex(t_struct *f, va_list ap)
 {
     int     i;
+    int     isupcase;
 
     i = 0;
     while (f->format[i])
@@ -105,5 +112,6 @@ void    ifinteger(t_struct *f, va_list ap, int isunsigned)
             f->precision = (f->precision) * 10 + (f->format[i] - 48);
         i++;
     }
-    displayinteger(f, ap, isunsigned);
+    isupcase = (f->conversion == 'X')? 1 : 0;
+    displayhex(f, ap, isupcase);
 }

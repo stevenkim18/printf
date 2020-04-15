@@ -23,7 +23,7 @@ void    displaypercent(t_struct *f)
     {
         if (f->zero)
         {
-            displayzero(f);
+            displayzero(f, 0);
             ft_putchar_fd('%', 1);
         }
         else 

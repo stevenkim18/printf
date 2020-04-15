@@ -2,5 +2,6 @@
 
 int main(void)
 {	
-	ft_printf("%1$");
+	int ret = ft_printf("%05d", 43);
+	printf("ret = %d\n", ret);
 }

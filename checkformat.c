@@ -47,10 +47,12 @@ void	classifyconversion(t_struct *f, va_list ap)
 {
 	if (f->conversion == '%')
 		ifpercent(f);
-    else if(f->conversion == 'c')
+    else if (f->conversion == 'c')
         ifchar(f, ap);
-	else if(f->conversion == 's')
+	else if (f->conversion == 's')
 		ifstring(f, ap);
+	else if (f->conversion == 'i' || f->conversion == 'd')
+		ifinteger(f, ap);
 	free(f->format);
 }
 

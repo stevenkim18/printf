@@ -40,8 +40,9 @@ int		checkformat(const char *s, va_list ap);
 void    ifpercent(t_struct *f);
 void	ifchar(t_struct *f, va_list ap);
 void    ifstring(t_struct *f, va_list ap);
+void    ifinteger(t_struct *f, va_list ap);
 
-void    displayzero(t_struct *f);
+void    displayzero(t_struct *f, int num);
 void    displaywidth(t_struct *f);
 
 

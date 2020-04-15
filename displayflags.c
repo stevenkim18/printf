@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void    displayzero(t_struct *f)
+void    displayzero(t_struct *f, int len)
 {
     int     i;
     int     zerolen;
@@ -21,6 +21,8 @@ void    displayzero(t_struct *f)
     zerolen = 0;
     if ((f->conversion) == 'c' || f->conversion == '%')
         zerolen = f->width - 1;
+    else if ((f->conversion == 'd') || f->conversion == 'i')
+        zerolen = f->precision - len;
     // print space
     while (i++ < zerolen)
         ft_putchar_fd('0', 1);
@@ -37,6 +39,8 @@ void    displaywidth(t_struct *f)
     if (f->width && (f->conversion == 'c' || f->conversion == '%'))
         spacelen = f->width - 1;
     else if (f->width && (f->conversion == 's'))
+        spacelen = f->width - f->precision;
+    else if (f->width && ((f->conversion == 'd') || f->conversion == 'i'))
         spacelen = f->width - f->precision;
     // print space
     while (i++ < spacelen)

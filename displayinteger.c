@@ -32,6 +32,8 @@ void    editflagsinteger(t_struct *f, long long num, int numlen)
             return ;
         if (f->precision <= numlen)
             f->precision = numlen;
+        else if (f->precision < 0)
+            f->precision = 1;
     }
     // 넓이가 있을 때
     if (f->width > 0)
@@ -45,6 +47,8 @@ void    editflagsinteger(t_struct *f, long long num, int numlen)
         // %05d, 34 --> 00034
         if (f->zero && !(f->dot))
             f->precision = f->width;
+        if (f->zero && f->minus)
+            f->zero = 0;
     }
 }
 
@@ -83,7 +87,8 @@ void    displayinteger(t_struct *f, va_list ap, int isunsigned)
         displaywidth(f);
         displayzerointeger(f, num);
     }
-    f->nprinted += getintlen(num);
+    if (!(f->width == 0 && f->dot && f->precision == 0))
+        f->nprinted += getintlen(num);
 }
 
 void    ifinteger(t_struct *f, va_list ap, int isunsigned)
@@ -94,8 +99,13 @@ void    ifinteger(t_struct *f, va_list ap, int isunsigned)
     while (f->format[i])
     {
         if (f->format[i] == '-' && !(f->minus))
+        {
+            if (f->zero)
+                f->zero = 0;
             f->minus = 1;
-        else if (f->format[i] == '0' && !(f->zero) && !(f->width))
+        }
+        else if (f->format[i] == '0' && !(f->zero)
+                    && !(f->width) && !(f->minus))
             f->zero = 1;
         else if (ft_isdigit(f->format[i]) && !(f->dot))
             f->width = (f->width) * 10 + (f->format[i] - 48);
@@ -103,7 +113,15 @@ void    ifinteger(t_struct *f, va_list ap, int isunsigned)
             f->dot = 1;
         else if (ft_isdigit(f->format[i]) && (f->dot))
             f->precision = (f->precision) * 10 + (f->format[i] - 48);
+        else if (f->format[i] == '*')
+            putflaginstar(f, ap);
         i++;
     }
     displayinteger(f, ap, isunsigned);
+    // printf("format = %s\n", f->format);
+    // printf("minus = %d\n", f->minus);
+    // printf("zero = %d\n", f->zero);
+    // printf("width = %d\n", f->width);
+    // printf("dot = %d\n", f->dot);
+    // printf("precision = %d\n", f->precision);
 }

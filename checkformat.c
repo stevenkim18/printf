@@ -16,17 +16,21 @@
 char	*findspecifier(const char *s)
 {
 	int 	i;
-	char	conversion;
+	char	*conversion;
 
 	i = 0;
 	while (s[i] && (ft_isdigit(s[i]) || s[i] == '+' || s[i] == '-' ||
-				s[i] == ' ' || s[i] == '#' || s[i] == '.'))
+				s[i] == ' ' || s[i] == '#' || s[i] == '.' || s[i] == '*'))
 		i++;
-	conversion = *ft_strchr("cspdiuxX%%", s[i]);
-	if (conversion)
-		return ((char*)s + i);
-	else 
-		return (NULL);
+	// %-5 이런 경우 해결하기 위해
+	if (ft_isprint(s[i]))
+	{
+		conversion = ft_strchr("cspdiuxX%%", s[i]);
+		if (conversion)
+			return ((char*)s + i);
+			return (NULL);
+	}
+	return (NULL);
 }
 
 // 구조체 초기화
@@ -57,6 +61,8 @@ void	classifyconversion(t_struct *f, va_list ap)
 		ifinteger(f, ap, 1);
 	else if (f->conversion == 'x' || f->conversion == 'X')
 		ifhex(f, ap);
+	else if (f->conversion == 'p')
+		ifpointer(f, ap);
 	free(f->format);
 }
 

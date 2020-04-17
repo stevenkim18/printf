@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   displayhex.c                                       :+:      :+:    :+:   */
+/*   displaypointer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/16 03:18:54 by seunkim           #+#    #+#             */
-/*   Updated: 2020/04/16 03:19:09 by seunkim          ###   ########.fr       */
+/*   Created: 2020/04/16 15:53:09 by seunkim           #+#    #+#             */
+/*   Updated: 2020/04/16 15:53:12 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		gethexlen(long long num)
+int		gethexlen1(long long num)
 {
 	int		count;
 
@@ -22,7 +22,7 @@ int		gethexlen(long long num)
 	return (count);
 }
 
-void	ft_puthex(long long num, int isupcase)
+void	ft_puthex1(long long num, int isupcase)
 {	
     char *hexup;
     char *hexlow;
@@ -35,8 +35,8 @@ void	ft_puthex(long long num, int isupcase)
 	}
 	if (num >= 16)
 	{
-		ft_puthex(num / 16, isupcase);
-		ft_puthex(num % 16, isupcase);
+		ft_puthex1(num / 16, isupcase);
+		ft_puthex1(num % 16, isupcase);
 	}
 	else
     {   
@@ -46,20 +46,22 @@ void	ft_puthex(long long num, int isupcase)
             write(1, &hexlow[num], 1);
     }
 }
-
-void    editflagshex(t_struct *f, int hexlen)
+void    editflagspointer(t_struct *f, int *hexlen)
 {
     if (f->dot)
     {
         if (f->precision == 0)
-            return ;
-        if (f->precision <= hexlen)
-            f->precision = hexlen;
+            *hexlen = 2;
+        if (f->precision <= *hexlen)
+            f->precision = *hexlen;
+        // 2.9p / .5p 일때
+        else 
+            f->precision += 2;
     }
     if (f->width > 0)
     {
         if (f->precision == 0)
-            f->precision = hexlen;
+            f->precision = *hexlen;
         if (f->width < f->precision)
             f->width = f->precision;
         if (f->zero && !(f->dot))
@@ -67,37 +69,38 @@ void    editflagshex(t_struct *f, int hexlen)
     }
 }
 
-void    displayhex(t_struct *f, va_list ap, int isupcase)
-{   
-    long long num;
+void    displaypointer(t_struct *f, va_list ap)
+{
+    long long   ptr;
+    int         ptrlen;
 
-    num = (long long)va_arg(ap, char *);
-    if (!num)
-        num = 0;
-    editflagshex(f, gethexlen(num));
+    ptr = (long long)va_arg(ap, char *);
+    ptrlen = (gethexlen1(ptr) + 2);
+    editflagspointer(f, &ptrlen);
     if (f->minus)
-    {   
+    {
+        ft_putstr_fd("0x", 1);
         if (f->zero || f->dot)
-            displayzero(f, gethexlen(num));
-        if (!(f->dot && f->precision == 0))
-            ft_puthex(num, isupcase);
+            displayzero(f, ptrlen);
+        if (!(f->dot && f->precision == 2))
+            ft_puthex1(ptr, 0);
         displaywidth(f);
     }
     else
-    {
+    {   
         displaywidth(f);
+        ft_putstr_fd("0x", 1);
         if (f->zero || f->dot)
-            displayzero(f, gethexlen(num));
-        if (!(f->dot && f->precision == 0))
-            ft_puthex(num, isupcase);
+            displayzero(f, ptrlen);
+        if (!(f->dot && f->precision == 2))
+            ft_puthex1(ptr, 0);
     }
-    f->nprinted += gethexlen(num);
+    f->nprinted += ptrlen;
 }
 
-void    ifhex(t_struct *f, va_list ap)
+void    ifpointer(t_struct *f, va_list ap)
 {
     int     i;
-    int     isupcase;
 
     i = 0;
     while (f->format[i])
@@ -115,6 +118,5 @@ void    ifhex(t_struct *f, va_list ap)
             f->precision = (f->precision) * 10 + (f->format[i] - 48);
         i++;
     }
-    isupcase = (f->conversion == 'X')? 1 : 0;
-    displayhex(f, ap, isupcase);
+    displaypointer(f, ap);
 }

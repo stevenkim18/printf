@@ -44,10 +44,10 @@ void    ifpercent(t_struct *f)
     {   
         // - flag
         if (f->format[i] == '-' && !(f->minus))
-            f->minus++;
+            f->minus = 1;
         // 0 flag
         else if (f->format[i] == '0' && !(f->zero))
-            f->zero++;
+            f->zero = 1;
         // width
         else if (ft_isdigit(f->format[i]))
             f->width = (f->width) * 10 + (f->format[i] - 48);

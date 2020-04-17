@@ -21,7 +21,8 @@ SRCS	=	ft_printf.c \
 			displaychar.c \
 			displaystring.c \
 			displayinteger.c \
-			displayhex.c
+			displayhex.c \
+			displaypointer.c
 			
 OBJS	=	$(SRCS:.c=.o)
 

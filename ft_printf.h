@@ -42,9 +42,10 @@ void	ifchar(t_struct *f, va_list ap);
 void    ifstring(t_struct *f, va_list ap);
 void    ifinteger(t_struct *f, va_list ap, int isunsigned);
 void    ifhex(t_struct *f, va_list ap);
+void    ifpointer(t_struct *f, va_list ap);
 
 void    displayzero(t_struct *f, int num);
 void    displaywidth(t_struct *f);
-
+void    putflaginstar(t_struct *f, va_list ap);
 
 #endif

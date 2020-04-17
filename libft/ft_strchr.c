@@ -15,7 +15,6 @@
 char	*ft_strchr(char *s, int c)
 {
 	size_t	idx;
-
 	idx = 0;
 	while (s[idx])
 	{
@@ -26,6 +25,6 @@ char	*ft_strchr(char *s, int c)
 	if (!(char)c)
 		return (s + idx);
 	else
-		return (NULL);
+		return ("");
 }
 

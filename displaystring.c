@@ -14,7 +14,7 @@
 
 void	ft_putnstr(char* str, int n)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	while (i < n)

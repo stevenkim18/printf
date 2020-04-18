@@ -50,7 +50,7 @@ void	putflaginstar(t_struct *f, va_list ap)
 }
 
 void	displayzero(t_struct *f, int len)
-{   
+{
 	int		i;
 	int		zerolen;
 
@@ -72,8 +72,8 @@ void	displayzero(t_struct *f, int len)
 
 void	displaywidth(t_struct *f)
 {
-	int     i;
-	int     spacelen;
+	int		i;
+	int		spacelen;
 
 	i = 0;
 	spacelen = 0;

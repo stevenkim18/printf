@@ -68,7 +68,7 @@ void	displayinteger(t_struct *f, va_list ap, int isunsigned)
 
 	if (isunsigned)
 		num = (long long)va_arg(ap, unsigned int);
-	else 
+	else
 		num = va_arg(ap, int);
 	editflagsinteger(f, num, getintlen(num));
 	if (f->minus)

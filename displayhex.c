@@ -12,41 +12,6 @@
 
 #include "ft_printf.h"
 
-int		gethexlen(long long num)
-{
-	int		count;
-
-	count = 1;
-	while (num /= 16)
-		count++;
-	return (count);
-}
-
-void	ft_puthex(long long num, int isupcase)
-{	
-    char *hexup;
-    char *hexlow;
-    hexup = "0123456789ABCDEF";
-    hexlow = "0123456789abcdef";
-	if (num < 0)
-	{
-		num = -num;
-		write(1, "-", 1);
-	}
-	if (num >= 16)
-	{
-		ft_puthex(num / 16, isupcase);
-		ft_puthex(num % 16, isupcase);
-	}
-	else
-    {   
-        if (isupcase)
-		    write(1, &hexup[num], 1);
-        else
-            write(1, &hexlow[num], 1);
-    }
-}
-
 void    editflagshex(t_struct *f, int hexlen)
 {
     if (f->dot)

@@ -118,10 +118,4 @@ void    ifinteger(t_struct *f, va_list ap, int isunsigned)
         i++;
     }
     displayinteger(f, ap, isunsigned);
-    // printf("format = %s\n", f->format);
-    // printf("minus = %d\n", f->minus);
-    // printf("zero = %d\n", f->zero);
-    // printf("width = %d\n", f->width);
-    // printf("dot = %d\n", f->dot);
-    // printf("precision = %d\n", f->precision);
 }

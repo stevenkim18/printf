@@ -28,6 +28,7 @@ char	*findspecifier(const char *s)
 		conversion = ft_strchr("cspdiuxX%%", s[i]);
 		if (conversion)
 			return ((char*)s + i);
+		else
 			return (NULL);
 	}
 	return (NULL);

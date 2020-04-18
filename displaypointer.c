@@ -12,40 +12,6 @@
 
 #include "ft_printf.h"
 
-int		gethexlen1(long long num)
-{
-	int		count;
-
-	count = 1;
-	while (num /= 16)
-		count++;
-	return (count);
-}
-
-void	ft_puthex1(long long num, int isupcase)
-{	
-    char *hexup;
-    char *hexlow;
-    hexup = "0123456789ABCDEF";
-    hexlow = "0123456789abcdef";
-	if (num < 0)
-	{
-		num = -num;
-		write(1, "-", 1);
-	}
-	if (num >= 16)
-	{
-		ft_puthex1(num / 16, isupcase);
-		ft_puthex1(num % 16, isupcase);
-	}
-	else
-    {   
-        if (isupcase)
-		    write(1, &hexup[num], 1);
-        else
-            write(1, &hexlow[num], 1);
-    }
-}
 void    editflagspointer(t_struct *f, int *hexlen)
 {
     if (f->dot)
@@ -75,7 +41,7 @@ void    displaypointer(t_struct *f, va_list ap)
     int         ptrlen;
 
     ptr = (long long)va_arg(ap, char *);
-    ptrlen = (gethexlen1(ptr) + 2);
+    ptrlen = (gethexlen(ptr) + 2);
     editflagspointer(f, &ptrlen);
     if (f->minus)
     {
@@ -83,7 +49,7 @@ void    displaypointer(t_struct *f, va_list ap)
         if (f->zero || f->dot)
             displayzero(f, ptrlen);
         if (!(f->dot && f->precision == 2))
-            ft_puthex1(ptr, 0);
+            ft_puthex(ptr, 0);
         displaywidth(f);
     }
     else
@@ -93,7 +59,7 @@ void    displaypointer(t_struct *f, va_list ap)
         if (f->zero || f->dot)
             displayzero(f, ptrlen);
         if (!(f->dot && f->precision == 2))
-            ft_puthex1(ptr, 0);
+            ft_puthex(ptr, 0);
     }
     f->nprinted += ptrlen;
 }

@@ -12,6 +12,24 @@
 
 #include "ft_printf.h"
 
+void    handleminusandwidth(t_struct *f, int flag)
+{
+    if (!(f->minus))
+    {
+        if (flag < 0)
+        {
+            f->minus = 1;
+            flag = -flag;
+        }
+    }
+    else
+    {
+        if (flag < 0)
+            flag = -flag;
+    }
+    f->width = flag;
+}
+
 void    putflaginstar(t_struct *f, va_list ap)
 {
     int     flag;
@@ -28,20 +46,7 @@ void    putflaginstar(t_struct *f, va_list ap)
             f->precision = flag;
         return ;
     }
-    if (!(f->minus))
-    {
-        if (flag < 0)
-        {
-            f->minus = 1;
-            flag = -flag;
-        }
-    }
-    else
-    {
-        if (flag < 0)
-            flag = -flag;
-    }
-    f->width = flag;
+    handleminusandwidth(f, flag);
 }
 
 void    displayzero(t_struct *f, int len)

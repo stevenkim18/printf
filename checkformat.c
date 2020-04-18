@@ -47,7 +47,7 @@ void	init(t_struct *f, char *format, char conversion)
 void	classifyconversion(t_struct *f, va_list ap)
 {
 	if (f->conversion == '%')
-		ifpercent(f);
+		ifpercent(f, ap);
 	else if (f->conversion == 'c')
 		ifchar(f, ap);
 	else if (f->conversion == 's')

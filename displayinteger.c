@@ -26,7 +26,7 @@ void	editflagsinteger(t_struct *f, long long num, int numlen)
 {
 	if (f->dot)
 	{
-		if (f->precision == 0)
+		if (f->precision == 0 && num == 0)
 			return ;
 		if (f->precision <= numlen)
 			f->precision = numlen;
@@ -58,7 +58,7 @@ void	displayzerointeger(t_struct *f, long long num)
 	}
 	if (f->zero || f->dot)
 		displayzero(f, getintlen(num));
-	if (!(f->dot && f->precision == 0))
+	if (!(f->dot && f->precision == 0 && num == 0))
 		ft_putnbr_fd(num, 1);
 }
 
@@ -99,7 +99,7 @@ void	ifinteger(t_struct *f, va_list ap, int isunsigned)
 			f->minus = 1;
 		}
 		else if (f->format[i] == '0' && !(f->zero)
-					&& !(f->width) && !(f->minus))
+					&& !(f->width) && !(f->minus) && !(f->precision))
 			f->zero = 1;
 		else if (ft_isdigit(f->format[i]) && !(f->dot))
 			f->width = (f->width) * 10 + (f->format[i] - 48);

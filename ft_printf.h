@@ -37,7 +37,7 @@ typedef struct	s_struct
 int				ft_printf(const char *s, ...);
 int				checkformat(const char *s, va_list ap);
 
-void			ifpercent(t_struct *f);
+void			ifpercent(t_struct *f, va_list ap);
 void			ifchar(t_struct *f, va_list ap);
 void			ifstring(t_struct *f, va_list ap);
 void			ifinteger(t_struct *f, va_list ap, int isunsigned);

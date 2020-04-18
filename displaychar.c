@@ -37,10 +37,12 @@ void	ifchar(t_struct *f, va_list ap)
 		if (f->format[i] == '-' && !(f->minus))
 			f->minus = 1;
 		else if (f->format[i] == '0' && !(f->zero)
-					&& !(f->width) && !(f->minus))
+					&& !(f->width) && !(f->minus) && !(f->precision))
 			f->zero = 1;
 		else if (ft_isdigit(f->format[i]))
 			f->width = (f->width) * 10 + (f->format[i] - 48);
+		else if (f->format[i] == '*')
+			putflaginstar(f, ap);
 		i++;
 	}
 	displaychar(f, ap);

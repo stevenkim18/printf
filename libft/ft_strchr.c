@@ -15,6 +15,7 @@
 char	*ft_strchr(char *s, int c)
 {
 	size_t	idx;
+	
 	idx = 0;
 	while (s[idx])
 	{

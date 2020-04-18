@@ -19,7 +19,7 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(char *s, int c);
-int		ft_isdigit(int c);
+int     ft_isdigit(int c);
 int     ft_isprint(int c);
 
 int		ft_putchar_fd(char c, int fd);

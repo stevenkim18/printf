@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 
-typedef		struct s_struct
+typedef		struct	s_struct
 {
 	char	*format;
 

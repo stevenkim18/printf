@@ -27,7 +27,7 @@ void	ft_putnbr_fd(long long n, int fd)
 		ft_putnbr_fd(num / 10, fd);
 		ft_putnbr_fd(num % 10, fd);
 	}
-	else 
+	else
 	{
 		num += 48;
 		write(fd, &num, 1);

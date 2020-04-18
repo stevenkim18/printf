@@ -16,7 +16,7 @@ void	ft_puthex(long long num, int isupcase)
 {
 	char *hexup;
 	char *hexlow;
-	
+
 	hexup = "0123456789ABCDEF";
 	hexlow = "0123456789abcdef";
 	if (num < 0)

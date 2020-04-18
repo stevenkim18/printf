@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_putnstr(char* str, int n)
+void	ft_putnstr(char *str, int n)
 {
 	int	i;
 

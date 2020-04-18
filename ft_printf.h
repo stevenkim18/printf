@@ -20,18 +20,18 @@
 
 typedef		struct	s_struct
 {
-	char	*format;
+	char			*format;
 
-	char	conversion;
+	char			conversion;
 
-	int		nprinted;
+	int				nprinted;
 
-	int		minus;
-	int		zero;
+	int				minus;
+	int				zero;
 
-	int		width;
-	int		dot;
-	int		precision;
+	int				width;
+	int				dot;
+	int				precision;
 }					t_struct;
 
 int			ft_printf(const char *s, ...);

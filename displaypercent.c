@@ -41,7 +41,7 @@ void	ifpercent(t_struct *f)
 
 	i = 0;
 	while (f->format[i])
-	{   
+	{
 		if (f->format[i] == '-' && !(f->minus))
 			f->minus = 1;
 		else if (f->format[i] == '0' && !(f->zero))

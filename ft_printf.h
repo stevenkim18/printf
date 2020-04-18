@@ -32,7 +32,7 @@ typedef		struct s_struct
 	int		width;
 	int		dot;
 	int		precision;
-}			t_struct;
+}					t_struct;
 
 int			ft_printf(const char *s, ...);
 int			checkformat(const char *s, va_list ap);

@@ -14,7 +14,7 @@
 
 char	*findspecifier(const char *s)
 {
-	int 	i;
+	int		i;
 	char	*conversion;
 
 	i = 0;
@@ -48,8 +48,8 @@ void	classifyconversion(t_struct *f, va_list ap)
 {
 	if (f->conversion == '%')
 		ifpercent(f);
-    else if (f->conversion == 'c')
-        ifchar(f, ap);
+	else if (f->conversion == 'c')
+    	ifchar(f, ap);
 	else if (f->conversion == 's')
 		ifstring(f, ap);
 	else if (f->conversion == 'i' || f->conversion == 'd')
@@ -79,7 +79,7 @@ int		checkformat(const char *s, va_list ap)
 	int 		i;
 	int			ret;
 	t_struct 	*f;
-	
+
 	ret = 0;
 	if (!(f = (t_struct*)malloc(sizeof(t_struct))))
 		return (0);
@@ -87,7 +87,7 @@ int		checkformat(const char *s, va_list ap)
 	while (s[++i])
 	{
 		if (s[i] == '%')
-		{	
+		{
 			if (!findspecifier(s + i + 1))
 				i++;
 			else if (findspecifier(s + i + 1))

@@ -17,6 +17,8 @@ int	ft_printf(const char *s, ...)
 	va_list	ap;
 	int		ret;
 
+	if (!s)
+		return (0);
 	va_start(ap, s);
 	ret = checkformat(s, ap);
 	va_end(ap);

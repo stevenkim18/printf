@@ -20,7 +20,6 @@ void    editflagspointer(t_struct *f, int *hexlen)
             *hexlen = 2;
         if (f->precision <= *hexlen)
             f->precision = *hexlen;
-        // 2.9p / .5p 일때
         else 
             f->precision += 2;
     }

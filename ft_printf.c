@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 
-// 제출 함수 ft_printf
 int	ft_printf(const char *s, ...)
 {	
 	va_list	ap;

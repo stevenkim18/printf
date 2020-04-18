@@ -24,10 +24,8 @@ int		getintlen(long long num)
 
 void    editflagsinteger(t_struct *f, long long num, int numlen)
 {   
-    // 정확도가 있을 때
     if (f->dot)
     {   
-        // %.d 인 경우 숫자 출력 안함.
         if (f->precision == 0)
             return ;
         if (f->precision <= numlen)
@@ -35,7 +33,6 @@ void    editflagsinteger(t_struct *f, long long num, int numlen)
         else if (f->precision < 0)
             f->precision = 1;
     }
-    // 넓이가 있을 때
     if (f->width > 0)
     {
         if (num < 0)
@@ -44,7 +41,6 @@ void    editflagsinteger(t_struct *f, long long num, int numlen)
             f->precision = numlen;
         if (f->width < f->precision)
             f->width = f->precision;
-        // %05d, 34 --> 00034
         if (f->zero && !(f->dot))
             f->precision = f->width;
         if (f->zero && f->minus)
@@ -54,7 +50,6 @@ void    editflagsinteger(t_struct *f, long long num, int numlen)
 
 void    displayzerointeger(t_struct *f, long long num)
 {
-    // -00012
     if (num < 0)
     {
         ft_putchar_fd('-', 1);
@@ -63,7 +58,6 @@ void    displayzerointeger(t_struct *f, long long num)
     }
     if (f->zero || f->dot)
         displayzero(f, getintlen(num));
-    // %.d 인 경우 숫자 출력 안함.
     if (!(f->dot && f->precision == 0))
         ft_putnbr_fd(num, 1);
 }

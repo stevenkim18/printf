@@ -65,7 +65,6 @@ void    displayzero(t_struct *f, int len)
         zerolen = f->precision - len;
     else if ((f->conversion == 'p') && (len != 2))
         zerolen = f->precision - len;
-    // print space
     while (i++ < zerolen)
         ft_putchar_fd('0', 1);
     f->nprinted += zerolen;
@@ -89,7 +88,6 @@ void    displaywidth(t_struct *f)
         spacelen = f->width - f->precision;
     else if (f->width && (f->conversion == 'p'))
         spacelen = f->width - f->precision;
-    // print space
     while (i++ < spacelen)
         ft_putchar_fd(' ', 1);
     f->nprinted += spacelen;

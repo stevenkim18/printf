@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 
-// % 뒤에 오는 문자 찾기 ex) cspdiuxX%
 char	*findspecifier(const char *s)
 {
 	int 	i;
@@ -22,7 +21,6 @@ char	*findspecifier(const char *s)
 	while (s[i] && (ft_isdigit(s[i]) || s[i] == '+' || s[i] == '-' ||
 				s[i] == ' ' || s[i] == '#' || s[i] == '.' || s[i] == '*'))
 		i++;
-	// %-5 이런 경우 해결하기 위해
 	if (ft_isprint(s[i]))
 	{
 		conversion = ft_strchr("cspdiuxX%%", s[i]);
@@ -34,7 +32,6 @@ char	*findspecifier(const char *s)
 	return (NULL);
 }
 
-// 구조체 초기화
 void	init(t_struct *f, char *format, char conversion)
 {
 	f->format = format;
@@ -47,7 +44,6 @@ void	init(t_struct *f, char *format, char conversion)
 	f->precision = 0;
 }
 
-//서식자 분류해서 각 함수로 보내기
 void	classifyconversion(t_struct *f, va_list ap)
 {
 	if (f->conversion == '%')
@@ -78,7 +74,6 @@ int		handleformatspecifier(t_struct *f, const char *s, int *i, va_list ap)
 	return (f->nprinted);
 }
 
-// 문자열에서 % 찾기 
 int		checkformat(const char *s, va_list ap)
 {
 	int 		i;

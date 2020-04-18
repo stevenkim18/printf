@@ -24,39 +24,16 @@ void    ft_putnstr(char* str, int n)
     }
 }
 
-// 문자열 길이 맞게 width presicion 수정
 void    editflags(t_struct *f, int strlen)
 {   
-    // width 만 있을 때
     if (!(f->dot))
     {
-        // width가 strlen 보다 작을 때
         if (f->width < strlen)
             f->width = strlen;
         f->precision = strlen;
     }
-    // width 와 precision 이 같이 있을 때
     else
     {   
-        /*/ width가 strlen보다 작을 때
-        if (f->width < strlen)
-        {   
-            // ("%8.13s", "HelloWorld")
-            if (f->precision >= strlen)
-            {
-                f->width = strlen;
-                f->precision = strlen;
-            }
-            // ("%8.5s", "HelloWorld")
-        }
-        // width가 strlen 보다 클때 
-        else
-        {
-            // ("%13.11s", "HelloWorld")
-            if (f->precision >= strlen)
-                f->precision = strlen;
-            // ("%13.8s", "HelloWorld")
-        }*/
         if (f->precision >= strlen)
         {
             f->precision = strlen;
@@ -70,10 +47,8 @@ void    displaystring(t_struct *f, va_list ap)
 {   
     char    *str;
 
-    // 이거 안해주면 segfalut 뜸. NULL 처리
     if (!(str = va_arg(ap, char *)))
         str = "(null)";
-    // str = va_arg(ap, char *);
     editflags(f, ft_strlen(str));
     if (f->minus)
     {

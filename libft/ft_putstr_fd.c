@@ -15,7 +15,7 @@
 void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	idx;
-	
+
 	idx = 0;
 	while (s[idx])
 	{
@@ -23,4 +23,3 @@ void	ft_putstr_fd(char *s, int fd)
 		idx++;
 	}
 }
-

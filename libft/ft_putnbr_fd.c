@@ -13,7 +13,7 @@
 #include "libft.h"
 
 void	ft_putnbr_fd(long long n, int fd)
-{	
+{}
 	long long	num;
 
 	num = n;

@@ -18,13 +18,13 @@
 # include <stdio.h>
 # include <stdarg.h>
 
-typedef     struct s_struct
+typedef		struct s_struct
 {
 	char    *format;
 
 	char    conversion;
 
-	int     nprinted;   // 출력된 문자 수
+	int     nprinted;
 
 	int     minus;
 	int     zero;
@@ -32,20 +32,20 @@ typedef     struct s_struct
 	int     width;
 	int     dot;
 	int     precision;
-}               t_struct;
+}			t_struct;
 
-int	    	ft_printf(const char *s, ...);
-int		    checkformat(const char *s, va_list ap);
+int			ft_printf(const char *s, ...);
+int			checkformat(const char *s, va_list ap);
 
-void    	ifpercent(t_struct *f);
-void	    ifchar(t_struct *f, va_list ap);
-void        ifstring(t_struct *f, va_list ap);
-void        ifinteger(t_struct *f, va_list ap, int isunsigned);
-void        ifhex(t_struct *f, va_list ap);
-void        ifpointer(t_struct *f, va_list ap);
+void		ifpercent(t_struct *f);
+void		ifchar(t_struct *f, va_list ap);
+void		ifstring(t_struct *f, va_list ap);
+void		ifinteger(t_struct *f, va_list ap, int isunsigned);
+void		ifhex(t_struct *f, va_list ap);
+void		ifpointer(t_struct *f, va_list ap);
 
-void        displayzero(t_struct *f, int num);
-void        displaywidth(t_struct *f);
-void        putflaginstar(t_struct *f, va_list ap);
+void		displayzero(t_struct *f, int num);
+void		displaywidth(t_struct *f);
+void		putflaginstar(t_struct *f, va_list ap);
 
 #endif

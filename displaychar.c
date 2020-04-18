@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void    displaychar(t_struct *f, va_list ap)
+void	displaychar(t_struct *f, va_list ap)
 {
 	if (f->minus)
 	{
@@ -29,7 +29,7 @@ void    displaychar(t_struct *f, va_list ap)
 
 void	ifchar(t_struct *f, va_list ap)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	while (f->format[i])

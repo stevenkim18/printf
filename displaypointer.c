@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void    editflagspointer(t_struct *f, int *hexlen)
+void	editflagspointer(t_struct *f, int *hexlen)
 {
 	if (f->dot)
 	{
@@ -20,7 +20,7 @@ void    editflagspointer(t_struct *f, int *hexlen)
 			*hexlen = 2;
 		if (f->precision <= *hexlen)
 			f->precision = *hexlen;
-		else 
+		else
 			f->precision += 2;
 	}
 	if (f->width > 0)
@@ -34,10 +34,10 @@ void    editflagspointer(t_struct *f, int *hexlen)
 	}
 }
 
-void    displaypointer(t_struct *f, va_list ap)
+void	displaypointer(t_struct *f, va_list ap)
 {
-	long long   ptr;
-	int         ptrlen;
+	long long	ptr;
+	int			ptrlen;
 
 	ptr = (long long)va_arg(ap, char *);
 	ptrlen = (gethexlen(ptr) + 2);
@@ -52,7 +52,7 @@ void    displaypointer(t_struct *f, va_list ap)
 		displaywidth(f);
 	}
 	else
-	{   
+	{
 		displaywidth(f);
 		ft_putstr_fd("0x", 1);
 		if (f->zero || f->dot)
@@ -63,9 +63,9 @@ void    displaypointer(t_struct *f, va_list ap)
 	f->nprinted += ptrlen;
 }
 
-void    ifpointer(t_struct *f, va_list ap)
+void	ifpointer(t_struct *f, va_list ap)
 {
-	int     i;
+	int		i;
 
 	i = 0;
 	while (f->format[i])

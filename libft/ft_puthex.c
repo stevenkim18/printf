@@ -13,11 +13,12 @@
 #include "libft.h"
 
 void	ft_puthex(long long num, int isupcase)
-{	
-    char *hexup;
-    char *hexlow;
-    hexup = "0123456789ABCDEF";
-    hexlow = "0123456789abcdef";
+{
+	char *hexup;
+	char *hexlow;
+	
+	hexup = "0123456789ABCDEF";
+	hexlow = "0123456789abcdef";
 	if (num < 0)
 	{
 		num = -num;
@@ -29,10 +30,10 @@ void	ft_puthex(long long num, int isupcase)
 		ft_puthex(num % 16, isupcase);
 	}
 	else
-    {   
-        if (isupcase)
-		    write(1, &hexup[num], 1);
-        else
-            write(1, &hexlow[num], 1);
-    }
+	{
+		if (isupcase)
+			write(1, &hexup[num], 1);
+		else
+			write(1, &hexlow[num], 1);
+	}
 }

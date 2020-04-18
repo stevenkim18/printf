@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void    ft_putnstr(char* str, int n)
+void	ft_putnstr(char* str, int n)
 {
 	int     i;
 
@@ -24,8 +24,8 @@ void    ft_putnstr(char* str, int n)
 	}
 }
 
-void    editflags(t_struct *f, int strlen)
-{   
+void	editflags(t_struct *f, int strlen)
+{
 	if (!(f->dot))
 	{
 		if (f->width < strlen)
@@ -33,7 +33,7 @@ void    editflags(t_struct *f, int strlen)
 		f->precision = strlen;
 	}
 	else
-	{   
+	{
 		if (f->precision >= strlen)
 		{
 			f->precision = strlen;
@@ -43,9 +43,9 @@ void    editflags(t_struct *f, int strlen)
 	}
 }
 
-void    displaystring(t_struct *f, va_list ap)
-{   
-	char    *str;
+void	displaystring(t_struct *f, va_list ap)
+{
+	char	*str;
 
 	if (!(str = va_arg(ap, char *)))
 		str = "(null)";
@@ -63,9 +63,9 @@ void    displaystring(t_struct *f, va_list ap)
 	f->nprinted += f->precision;
 }
 
-void    ifstring(t_struct *f, va_list ap)
+void	ifstring(t_struct *f, va_list ap)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	while (f->format[i])

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void    handleminusandwidth(t_struct *f, int flag)
+void	handleminusandwidth(t_struct *f, int flag)
 {
 	if (!(f->minus))
 	{
@@ -30,13 +30,13 @@ void    handleminusandwidth(t_struct *f, int flag)
 	f->width = flag;
 }
 
-void    putflaginstar(t_struct *f, va_list ap)
+void	putflaginstar(t_struct *f, va_list ap)
 {
-	int     flag;
+	int	flag;
 
 	flag = va_arg(ap, int);
 	if (f->dot)
-	{   
+	{
 		if (flag < 0)
 		{
 			f->dot = 0;
@@ -49,10 +49,10 @@ void    putflaginstar(t_struct *f, va_list ap)
 	handleminusandwidth(f, flag);
 }
 
-void    displayzero(t_struct *f, int len)
+void	displayzero(t_struct *f, int len)
 {   
-	int     i;
-	int     zerolen;
+	int		i;
+	int		zerolen;
 
 	i = 0;
 	zerolen = 0;
@@ -70,7 +70,7 @@ void    displayzero(t_struct *f, int len)
 	f->nprinted += zerolen;
 }
 
-void    displaywidth(t_struct *f)
+void	displaywidth(t_struct *f)
 {
 	int     i;
 	int     spacelen;

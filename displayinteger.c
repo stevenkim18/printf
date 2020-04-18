@@ -22,10 +22,10 @@ int		getintlen(long long num)
 	return (count);
 }
 
-void    editflagsinteger(t_struct *f, long long num, int numlen)
-{   
+void	editflagsinteger(t_struct *f, long long num, int numlen)
+{
 	if (f->dot)
-	{   
+	{
 		if (f->precision == 0)
 			return ;
 		if (f->precision <= numlen)
@@ -48,7 +48,7 @@ void    editflagsinteger(t_struct *f, long long num, int numlen)
 	}
 }
 
-void    displayzerointeger(t_struct *f, long long num)
+void	displayzerointeger(t_struct *f, long long num)
 {
 	if (num < 0)
 	{
@@ -62,9 +62,9 @@ void    displayzerointeger(t_struct *f, long long num)
 		ft_putnbr_fd(num, 1);
 }
 
-void    displayinteger(t_struct *f, va_list ap, int isunsigned)
+void	displayinteger(t_struct *f, va_list ap, int isunsigned)
 {
-	long long   num;
+	long long	num;
 
 	if (isunsigned)
 		num = (long long)va_arg(ap, unsigned int);
@@ -85,9 +85,9 @@ void    displayinteger(t_struct *f, va_list ap, int isunsigned)
 		f->nprinted += getintlen(num);
 }
 
-void    ifinteger(t_struct *f, va_list ap, int isunsigned)
+void	ifinteger(t_struct *f, va_list ap, int isunsigned)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	while (f->format[i])

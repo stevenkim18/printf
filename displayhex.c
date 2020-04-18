@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void    editflagshex(t_struct *f, int hexlen)
+void	editflagshex(t_struct *f, int hexlen)
 {
 	if (f->dot)
 	{
@@ -32,8 +32,8 @@ void    editflagshex(t_struct *f, int hexlen)
 	}
 }
 
-void    displayhex(t_struct *f, va_list ap, int isupcase)
-{   
+void	displayhex(t_struct *f, va_list ap, int isupcase)
+{
 	long long num;
 
 	num = (long long)va_arg(ap, char *);
@@ -41,7 +41,7 @@ void    displayhex(t_struct *f, va_list ap, int isupcase)
 		num = 0;
 	editflagshex(f, gethexlen(num));
 	if (f->minus)
-	{   
+	{
 		if (f->zero || f->dot)
 			displayzero(f, gethexlen(num));
 		if (!(f->dot && f->precision == 0))
@@ -59,10 +59,10 @@ void    displayhex(t_struct *f, va_list ap, int isupcase)
 	f->nprinted += gethexlen(num);
 }
 
-void    ifhex(t_struct *f, va_list ap)
+void	ifhex(t_struct *f, va_list ap)
 {
-	int     i;
-	int     isupcase;
+	int		i;
+	int		isupcase;
 
 	i = 0;
 	while (f->format[i])
@@ -80,6 +80,6 @@ void    ifhex(t_struct *f, va_list ap)
 			f->precision = (f->precision) * 10 + (f->format[i] - 48);
 		i++;
 	}
-	isupcase = (f->conversion == 'X')? 1 : 0;
+	isupcase = (f->conversion == 'X') ? 1 : 0;
 	displayhex(f, ap, isupcase);
 }

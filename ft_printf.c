@@ -13,10 +13,10 @@
 #include "ft_printf.h"
 
 int	ft_printf(const char *s, ...)
-{	
+{
 	va_list	ap;
 	int		ret;
-	
+
 	va_start(ap, s);
 	ret = checkformat(s, ap);
 	va_end(ap);

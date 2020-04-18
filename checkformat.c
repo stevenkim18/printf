@@ -49,7 +49,7 @@ void	classifyconversion(t_struct *f, va_list ap)
 	if (f->conversion == '%')
 		ifpercent(f);
 	else if (f->conversion == 'c')
-    	ifchar(f, ap);
+		ifchar(f, ap);
 	else if (f->conversion == 's')
 		ifstring(f, ap);
 	else if (f->conversion == 'i' || f->conversion == 'd')
@@ -76,9 +76,9 @@ int		handleformatspecifier(t_struct *f, const char *s, int *i, va_list ap)
 
 int		checkformat(const char *s, va_list ap)
 {
-	int 		i;
+	int			i;
 	int			ret;
-	t_struct 	*f;
+	t_struct	*f;
 
 	ret = 0;
 	if (!(f = (t_struct*)malloc(sizeof(t_struct))))

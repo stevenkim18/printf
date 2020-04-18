@@ -14,7 +14,7 @@
 
 char		*ft_strndup(char const *s, int n)
 {
-	int	idx;
+	int		idx;
 	char	*ptr;
 
 	idx = 0;

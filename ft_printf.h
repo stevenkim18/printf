@@ -18,21 +18,21 @@
 # include <stdio.h>
 # include <stdarg.h>
 
-typedef		struct	s_struct
+typedef struct	s_struct
 {
-	char			*format;
+	char		*format;
 
-	char			conversion;
+	char		conversion;
 
-	int				nprinted;
+	int			nprinted;
 
-	int				minus;
-	int				zero;
+	int			minus;
+	int			zero;
 
-	int				width;
-	int				dot;
-	int				precision;
-}					t_struct;
+	int			width;
+	int			dot;
+	int			precision;
+}				t_struct;
 
 int			ft_printf(const char *s, ...);
 int			checkformat(const char *s, va_list ap);
